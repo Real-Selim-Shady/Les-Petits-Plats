@@ -42,6 +42,8 @@ body {
   background-color: #C7BEBE;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+  padding-right: 15px;
+  padding-left: 15px;
 }
 
 .bottomSpace {
@@ -51,6 +53,8 @@ body {
   background-color: #E7E7E7;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
+  padding-right: 15px;
+  padding-left: 15px;
 }
 
 .titleAndTimer {
@@ -58,32 +62,74 @@ body {
 }
 
 .title {
+  width: 70%;
   font-family: DM Sans;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
+}
 
-  text-align: center;
-
-  color: #D3573C;
+.timer_block {
+  display: flex;
+  width: 30%;
+  font-size: 16px;
+  font-weight: bolder;
+  justify-content: end;
+  align-items: center;
 }
 
 .timer {
-  font-size: 16px;
-  font-weight: bolder;
+  margin-left: 5px;
 }
+
+
+
 
 .ingredientsAndTuto{
   display: flex;
+  width: 100%;
+  text-overflow: ellipsis;
+  height: 65%;
+}
+
+.ingredients_bloc {
+  width: 50%;
+
 }
 
 .ingredients {
   font-size: 10px;
+  display: flex;
+}
+
+.ingredient_txt {
+  font-weight: bolder;
+}
+
+.quantity_unit {
+  font-size: 10px;
 }
 
 .tuto {
+  display: block;
   font-size: 10px;
+  width: 50%;
+  overflow: hidden;
 }
+
+.tuto_description {
+  display: block;
+  display: -webkit-box;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
+  font-size: 10px;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+
 
 
 .recettes_accueil article .localisation {
@@ -153,6 +199,30 @@ svg {
     border-color: transparent;
     background-color: transparent;
   }
+
+  .icon_select_mate2 {
+    position: absolute;
+    top: 20px;
+    right: 2%;
+    font-size: 16px;
+    height: 22px;
+    transition: all 275ms;
+    border-color: transparent;
+    background-color: transparent;
+  }
+
+  .text_colored {
+    color: #E7E7E7;
+    background-color: transparent;
+    border-color: transparent;
+    height: 60px;
+  }
+
+  .text_colored::placeholder {
+    color: #E7E7E7;
+  }
+
+
   .select_mate {
     position: relative;
     float: left;
@@ -276,7 +346,11 @@ svg {
     border-radius: 4px;
     padding-left: 15px;
     font-family: "DM Sans", sans-serif;
-    color: #a2a0a0;
+    color: black;
+}
+
+.text::placeholder {
+  color: #a2a0a0;
 }
 
 .icon_search_flex {
@@ -288,10 +362,12 @@ svg {
     margin-bottom: auto;
 }
 
-.text input {
-    border-color: purple;
-}
 
 .filtres_petits {
     display: flex;
 }
+
+input:hover {
+  border: 0, transparent;
+  background: transparent;
+  }

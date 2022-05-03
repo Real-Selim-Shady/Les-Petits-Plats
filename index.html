@@ -4,7 +4,7 @@
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/0d91ecef93.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/a61e13a804.js" crossorigin="anonymous"></script>
     <title>Les Petits Plats</title>
   </head>
   <body>
@@ -16,7 +16,7 @@
         <div class="filtres_flex">
           <div class="filtre_grand">
             <div class="text_flex">
-              <input type="text" name="rechercher" id="rechercher" class="text" value="Rechercher une recette" onFocus="checkValue(this.id)" />
+              <input type="text" name="rechercher" id="rechercher" class="text" placeholder="Rechercher une recette" />
             </div>
             <div class="icon_search_flex">
               <i class="fa-solid fa-magnifying-glass"></i>
@@ -24,15 +24,11 @@
           </div>
           <div class="filtres_petits">
             <div class="filtre_petit_1">
-              <!-- Custom select structure --> 
+
+                <!-- Custom select structure --> 
                 <div class="select_mate" id="color1" data-mate-select="active">
-                  <select title ="sélection du tri" class="select_mate" id="color1" name="" style="display:none">
-                    <option type="text" title="tri par date" value="date" >Ingrédients</option>
-                    <option title="tri par popularité" value="like">Popularité</option>
-                    <option title="tri partitre" value="title">Titre</option>
-                  </select>
-                  <p title="option sélectionnée" class="selecionado_opcion"  onclick="open_select(this)" ></p>
-                  <button aria-label="Sélection du type de tri" onclick="open_select(this)" class="icon_select_mate" >
+                  <input type="text" class="text_colored" name="rechercher" id="recherche_ingredients" placeholder="Ingredients" onclick="open_select1()" />
+                  <button aria-label="Sélection de l'ingrédent" id="select_ingredients" onclick="open_select1()" class="icon_select_mate2" >
                     <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                       <path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/>
                       <path d="M0-.75h24v24H0z" fill="none"/>
@@ -43,48 +39,36 @@
                   </div>
                 </div>
               <!-- Custom select structure -->
-            </div>
-            <div class="filtre_petit_2">
-              <!-- Custom select structure --> 
+
+                <!-- Custom select structure --> 
                 <div class="select_mate" id="color2" data-mate-select="active">
-                  <select title ="sélection du tri" class="select_mate" id="color2" name="" style="display:none">
-                    <option title="tri par date" value="date" >Appareils</option>
-                    <option title="tri par popularité" value="like">Popularité</option>
-                    <option title="tri partitre" value="title">Titre</option>
-                  </select>
-                  <p title="option sélectionnée" class="selecionado_opcion"  onclick="open_select(this)" ></p>
-                  <button aria-label="Sélection du type de tri" onclick="open_select(this)" class="icon_select_mate" >
+                  <input type="text" class="text_colored" name="rechercher" id="recherche_appareils" placeholder="Appareils" onclick="open_select2()" />
+                  <button aria-label="Sélection de l'ingrédent" id="select_appareils" onclick="open_select2()" class="icon_select_mate2" >
                     <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                       <path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/>
                       <path d="M0-.75h24v24H0z" fill="none"/>
                     </svg>
                   </button>
                   <div class="cont_list_select_mate">
-                    <ul class="cont_select_int" id="color2">  </ul> 
+                    <ul class="cont_select_int" id="color1">  </ul> 
                   </div>
                 </div>
               <!-- Custom select structure -->
-            </div>
-            <div class="filtre_petit_3">
-              <!-- Custom select structure --> 
+
+                <!-- Custom select structure --> 
                 <div class="select_mate" id="color3" data-mate-select="active">
-                  <select title ="sélection du tri" class="select_mate" id="color3" name="" style="display:none">
-                    <option title="tri par date" value="date" >Ustensiles</option>
-                    <option title="tri par popularité" value="like">Popularité</option>
-                    <option title="tri partitre" value="title">Titre</option>
-                  </select>
-                  <p title="option sélectionnée" class="selecionado_opcion"  onclick="open_select(this)" ></p>
-                  <button aria-label="Sélection du type de tri" onclick="open_select(this)" class="icon_select_mate" >
+                  <input type="text" class="text_colored" name="rechercher" id="recherche_ustensiles" placeholder="Ustensiles" onclick="open_select3()" />
+                  <button aria-label="Sélection de l'ingrédent" id="select_ustensiles" onclick="open_select3()" class="icon_select_mate2" >
                     <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                       <path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/>
                       <path d="M0-.75h24v24H0z" fill="none"/>
                     </svg>
                   </button>
                   <div class="cont_list_select_mate">
-                    <ul class="cont_select_int" id="color3">  </ul> 
+                    <ul class="cont_select_int" id="color1">  </ul> 
                   </div>
                 </div>
-              <!-- Custom select structure --> 
+              <!-- Custom select structure -->
             </div>
           </div>
         </div>
