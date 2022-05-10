@@ -1,8 +1,10 @@
 //fichier Javascript gérant la page d'accueil
-
+let filteredRecipes = [...recipes];
+let tags = [];
+//chaque tag sera un objet {type:"", text:""}
 
 //récupérer les données des recettes recipes
-async function getRecipes() {
+function getRecipes() {
         
     return (
         [...recipes]
@@ -10,11 +12,12 @@ async function getRecipes() {
 }
 
 //afficher les recettes recipes
-async function displayRecipes(recipes) {
+function displayRecipes() {
     const recettes_accueil = document.getElementById("recettes_accueil");
-    console.log(recipes);
+    recettes_accueil.innerHTML = "";
 
-    recipes.forEach((recipe) => {
+    //essayer de faire fonctionner ça avec une boucle for sur la version pas optimisée
+    filteredRecipes.forEach((recipe) => {
 
         const recipeModel = recipeFactory(recipe);
         const recipeCard = recipeModel.getRecipeCard();
@@ -22,22 +25,50 @@ async function displayRecipes(recipes) {
 	
     });
 
+
+}
+
+function loadSearch() {
+    const dataSearched = document.getElementById("rechercher").value.toLowerCase();
+    if(dataSearched.length >= 3) {
+
+
+
+        filteredRecipes = recipes.filter(item => item.name.toLowerCase().includes(dataSearched)); // à mettre dans filterall -> à supprimer
+        //filterAll(){}
+        displayRecipes();
+
+
+
+
+    } else {
+        //if (filteredRecipes.length != recipes.length) {    --> if à garder pour la version optimisée
+        filteredRecipes = [...recipes]; //déjà mis dans filterall -> à supprimer
+        //filterAll(){}
+        displayRecipes();
+        //} --> fin de l'accolade du if à garder pour la version optimisée
+
+    }
+
 }
 
 
-async function init() {
-    const recipes = await getRecipes();
-    displayRecipes(recipes);
+/*async function init() {
+    await loadSearch();
 }
-init();
+init();*/
+
+
 
 //cette fonction permet de rendre actives les fonctions évoquées à l'intérieur de celle-ci
-/*window.onload = async function() {
-    crear_select();
-};*/
+window.onload = function() {
+    const recipes = getRecipes();
+    displayRecipes(recipes);
+};
 
 
 
+//fonctions servant à faire tourner les fleches pour le moment
 function open_select1(){
 
     document.getElementById("select_ingredients").style.transform = "rotate(180deg)";

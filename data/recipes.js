@@ -6,7 +6,7 @@ const recipes = [
         "servings" : 1,
         "ingredients": [
             {
-                "ingredient" : "Lait de coco",
+                "ingredient" : "Lait de coco", //faire une deuxième boucle à l'intérieur de recipe.ingredients
                 "quantity" : 400,
                 "unit" : "ml"
             },
