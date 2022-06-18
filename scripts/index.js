@@ -186,7 +186,7 @@ function loadSearch() {
 
 
 // FONCTIONS de côté en attendant la création des tags
-function filterByIngredient(){
+/*function filterByIngredient(){
 
     const ingredientSearched = document.getElementById("recherche_ingredients").value.toLowerCase();
     if(ingredientSearched.length >= 3) {
@@ -212,9 +212,9 @@ function filterByIngredient(){
         displayRecipes();
 
     }
-}
+}*/
 
-function filterByUstensil(){
+/*function filterByUstensil(){
     const ustensilSearched = document.getElementById("recherche_ustensiles").value.toLowerCase();
     if(ustensilSearched.length >= 3) {
 
@@ -243,9 +243,9 @@ function filterByUstensil(){
         displayRecipes();
 
     }
-}
+}*/
 
-function filterByAppareil(){
+/*function filterByAppareil(){
     const appareilSearched = document.getElementById("recherche_appareils").value.toLowerCase();
     if(appareilSearched.length >= 3) {
         filteredRecipes = recipes.filter(item => item.appliance.toLowerCase().includes(appareilSearched));
@@ -253,6 +253,128 @@ function filterByAppareil(){
     }else {
         filteredRecipes = [...recipes]; 
         displayRecipes();
+    }
+}*/
+
+function filterByIngredient(){
+
+    const ingredientSearched = document.getElementById("recherche_ingredients").value.toLowerCase();
+    if(ingredientSearched.length >= 3) {
+
+        filteredRecipes = 
+
+        recipes.filter((recipe) => {
+        return (
+            (recipe.ingredients.filter
+                ( ingredient => 
+                
+                ingredient.ingredient.toLowerCase().includes(ingredientSearched)
+
+                )
+
+            ).length >0)
+        });
+
+
+        displayLittleIngredients();
+    }else {
+        filteredRecipes = [...recipes]; 
+        displayLittleIngredients();
+
+    }
+}
+
+function filterByUstensil(){
+    const ustensilSearched = document.getElementById("recherche_ustensiles").value.toLowerCase();
+
+
+
+    if(ustensilSearched.length >= 3) {
+
+
+        filteredRecipes = 
+
+        recipes.filter((recipe) => {
+        return (
+            (recipe.ustensils.filter
+                ( ustensils => 
+                
+                ustensils.toLowerCase().includes(ustensilSearched)
+
+                )
+
+            ).length >0)
+        });
+
+        displayLittleUstensiles();
+    }else {
+        filteredRecipes = [...recipes]; 
+        displayLittleUstensiles();
+
+    }
+
+    /*
+
+
+    const ustensils = [];
+
+    //essayer de faire fonctionner ça avec une boucle for sur la version pas optimisée
+    filteredRecipes.forEach((recipe) => {
+        recipe.ustensils.forEach((ustensil) => {
+            if (ustensils.indexOf(ustensil)<0) {
+                ustensils.push(ustensil);
+            };
+
+        })	
+    });
+
+    ustensils.forEach((ustensil) => {
+        little_ustensiles_container.appendChild(getUstensilTag(ustensil));
+    })*/
+}
+
+/*
+function filterByUstensil(){
+    const ustensilSearched = document.getElementById("recherche_ustensiles").value.toLowerCase();
+
+    if(ustensilSearched.length >= 3) {
+
+
+        filteredRecipes = recipes.filter((item) => {
+            return (item.ustensils.includes(ustensilSearched));
+        });
+
+        filteredRecipes = 
+
+        recipes.filter((recipe) => {
+        return (
+            (recipe.ustensils.filter
+                ( ustensils => 
+                
+                ustensils.toLowerCase().includes(ustensilSearched)
+
+                )
+
+            ).length >0)
+        });
+
+        displayLittleUstensiles();
+    }else {
+        filteredRecipes = [...recipes]; 
+        displayLittleUstensiles();
+
+    }
+}
+*/
+
+function filterByAppareil(){
+    const appareilSearched = document.getElementById("recherche_appareils").value.toLowerCase();
+    if(appareilSearched.length >= 3) {
+        filteredRecipes = recipes.filter(item => item.appliance.toLowerCase().includes(appareilSearched));
+        displayLittleAppareils();
+    }else {
+        filteredRecipes = [...recipes]; 
+        displayLittleAppareils();
     }
 }
 
@@ -273,18 +395,108 @@ window.onload = function() {
 //fonctions servant à faire tourner les fleches pour le moment
 function open_select1(){
 
-    document.getElementById("select_ingredients").style.transform = "rotate(180deg)";
+    const little_ingredients_container = document.getElementById("little_ingredients_container");
 
-} // fin function open_select
+    /*if (little_ingredients_container.style.display="none") {
+    little_ingredients_container.style.display="grid";
+    document.getElementById("select_ingredients").style.transform = "rotate(180deg)";}
+    else {
+        little_ingredients_container.style.display="none";
+        document.getElementById("recherche_ustensiles").textContent="";
+        document.getElementById("select_ingredients").style.transform = "rotate(180deg)";
+        console.log("click ingredient");
+    }*/
+
+    switch (little_ingredients_container.style.display="none") {
+        case "none" :
+            little_ingredients_container.style.display="grid";
+            document.getElementById("select_ingredients").style.transform = "rotate(180deg)";
+            console.log("case 1 enclenché");
+        break;
+        case "grid" :
+            little_ingredients_container.style.display="none";
+            document.getElementById("recherche_ustensiles").textContent="";
+            document.getElementById("select_ingredients").style.transform = "rotate(180deg)";
+            console.log("case 2 enclenché");
+        break;
+        default:
+            console.log("default");
+
+    }
+
+} 
+
+function open_select1_2(){
+
+    const little_ingredients_container = document.getElementById("little_ingredients_container");
+
+    if (little_ingredients_container.style.display="none") {
+    little_ingredients_container.style.display="grid";
+    document.getElementById("select_ingredients").style.transform = "rotate(180deg)";}
+    
+} 
 
 function open_select2(){
 
-    document.getElementById("select_appareils").style.transform = "rotate(180deg)";
+    
+    const little_appareils_container = document.getElementById("little_appareils_container");
 
-} // fin function open_select
+    if (little_appareils_container.style.display="none") {
+    document.getElementById("select_appareils").style.transform = "rotate(180deg)";
+    little_appareils_container.style.display="grid";}
+    else {
+        little_appareils_container.style.display="none";
+        document.getElementById("recherche_ustensiles").textContent="";
+        document.getElementById("select_appareils").style.transform = "rotate(180deg)";
+    }
+
+    //if (little_appareils_container.style.display="grid") {
+    //little_appareils_container.style.display="none";}
+    
+
+
+}
+
+function open_select2_2(){
+
+    
+    const little_appareils_container = document.getElementById("little_appareils_container");
+
+    if (little_appareils_container.style.display="none") {
+    document.getElementById("select_appareils").style.transform = "rotate(180deg)";
+    little_appareils_container.style.display="grid";}
+
+}
 
 function open_select3(){
 
-    document.getElementById("select_ustensiles").style.transform = "rotate(180deg)";
 
-} // fin function open_select
+
+    const little_ustensiles_container = document.getElementById("little_ustensiles_container");
+
+
+    if (little_ustensiles_container.style.display="none") {
+    document.getElementById("select_ustensiles").style.transform = "rotate(180deg)";
+    little_ustensiles_container.style.display="grid";}
+    else {
+        little_ustensiles_container.style.display="none";
+        document.getElementById("recherche_ustensiles").textContent="";
+        document.getElementById("select_ustensiles").style.transform = "rotate(180deg)";
+    }
+
+
+
+}
+
+function open_select3_2(){
+
+
+
+    const little_ustensiles_container = document.getElementById("little_ustensiles_container");
+
+
+    if (little_ustensiles_container.style.display="none") {
+    document.getElementById("select_ustensiles").style.transform = "rotate(180deg)";
+    little_ustensiles_container.style.display="grid";}
+
+}
