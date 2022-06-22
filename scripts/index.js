@@ -2,6 +2,8 @@
 let filteredRecipes = [...recipes];
 let tags = [];
 let ingredients = recipes.ingredients;
+
+
 //chaque tag sera un objet {type:"", text:""}
 
 //récupérer les données des recettes recipes
@@ -288,9 +290,14 @@ function filterByUstensil(){
     const ustensilSearched = document.getElementById("recherche_ustensiles").value.toLowerCase();
 
 
+    const ustensils = [];
 
     if(ustensilSearched.length >= 3) {
 
+
+        //filteredRecipes = recipes.filter((item) => {
+        //    return (item.ustensils.includes(ustensilSearched));
+        //});
 
         filteredRecipes = 
 
@@ -307,11 +314,68 @@ function filterByUstensil(){
         });
 
         displayLittleUstensiles();
-    }else {
+    }
+/*
+        filteredRecipes = recipes.filter((item) => {
+            return (item.ustensils.includes(ustensilSearched));
+        });
+
+        filteredRecipes = 
+
+        recipes.filter((recipe) => {
+        return (
+            (recipe.ustensils.filter
+                ( ustensils => 
+                
+                ustensils.toLowerCase().includes(ustensilSearched)
+
+                )
+
+            ).length >0)
+        });
+
+        //premier modele
+
+        /*filteredRecipes = 
+
+        recipes.filter((recipe) => {
+        return (
+            (recipe.ingredients.filter
+                ( ingredient => 
+                
+                ingredient.ingredient.toLowerCase().includes(ingredientSearched)
+
+                )
+
+            ).length >0)
+        });*/
+
+
+        //deuxième modele
+        
+        /*
+        ustensils = 
+
+        recipes.filter((recipe) => {
+        return (
+            (recipe.ustensils.filter
+                ( ustensils => 
+                
+                ustensils.toLowerCase().includes(ustensilSearched)
+
+                )
+
+            ).length >0)
+        });
+        */
+       else {
+        //filteredRecipes = [...recipes]; 
         filteredRecipes = [...recipes]; 
         displayLittleUstensiles();
 
-    }
+    };}
+
+    
 
     /*
 
@@ -331,7 +395,7 @@ function filterByUstensil(){
     ustensils.forEach((ustensil) => {
         little_ustensiles_container.appendChild(getUstensilTag(ustensil));
     })*/
-}
+
 
 /*
 function filterByUstensil(){
@@ -397,17 +461,7 @@ function open_select1(){
 
     const little_ingredients_container = document.getElementById("little_ingredients_container");
 
-    /*if (little_ingredients_container.style.display="none") {
-    little_ingredients_container.style.display="grid";
-    document.getElementById("select_ingredients").style.transform = "rotate(180deg)";}
-    else {
-        little_ingredients_container.style.display="none";
-        document.getElementById("recherche_ustensiles").textContent="";
-        document.getElementById("select_ingredients").style.transform = "rotate(180deg)";
-        console.log("click ingredient");
-    }*/
-
-    switch (little_ingredients_container.style.display="none") {
+    switch (little_ingredients_container.style.display) {
         case "none" :
             little_ingredients_container.style.display="grid";
             document.getElementById("select_ingredients").style.transform = "rotate(180deg)";
@@ -415,8 +469,8 @@ function open_select1(){
         break;
         case "grid" :
             little_ingredients_container.style.display="none";
-            document.getElementById("recherche_ustensiles").textContent="";
-            document.getElementById("select_ingredients").style.transform = "rotate(180deg)";
+            document.getElementById("recherche_ustensiles").value="";
+            document.getElementById("select_ingredients").style.transform = "rotate(0deg)";
             console.log("case 2 enclenché");
         break;
         default:
@@ -441,13 +495,13 @@ function open_select2(){
     
     const little_appareils_container = document.getElementById("little_appareils_container");
 
-    if (little_appareils_container.style.display="none") {
+    if (little_appareils_container.style.display=="none") {
     document.getElementById("select_appareils").style.transform = "rotate(180deg)";
     little_appareils_container.style.display="grid";}
     else {
         little_appareils_container.style.display="none";
-        document.getElementById("recherche_ustensiles").textContent="";
-        document.getElementById("select_appareils").style.transform = "rotate(180deg)";
+        document.getElementById("recherche_appareils").textContent="";
+        document.getElementById("select_appareils").style.transform = "rotate(0deg)";
     }
 
     //if (little_appareils_container.style.display="grid") {
@@ -475,13 +529,13 @@ function open_select3(){
     const little_ustensiles_container = document.getElementById("little_ustensiles_container");
 
 
-    if (little_ustensiles_container.style.display="none") {
+    if (little_ustensiles_container.style.display=="none") {
     document.getElementById("select_ustensiles").style.transform = "rotate(180deg)";
     little_ustensiles_container.style.display="grid";}
     else {
         little_ustensiles_container.style.display="none";
         document.getElementById("recherche_ustensiles").textContent="";
-        document.getElementById("select_ustensiles").style.transform = "rotate(180deg)";
+        document.getElementById("select_ustensiles").style.transform = "rotate(0deg)";
     }
 
 
