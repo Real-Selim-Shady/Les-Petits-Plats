@@ -111,6 +111,7 @@ function recipeFactory(recipe) {
 
     return { getRecipeCard };
 
+    
 }
 
 function getAppareilTag (appliance) {
@@ -140,6 +141,7 @@ function getIngredientTag (ingredient) {
     ingredient1.textContent = ingredient;
 
     return (ingredient1);
+
 }
 
 //fonction permettant de fermer la modale de gallerie d"image
@@ -148,4 +150,25 @@ function closeMediaModal () {
     let modal = document.getElementById("myModal");
     modal.style.display = "none";
 
+}
+
+function ajouterIngredientTag(ingredient)
+{
+ // l'utilisateur a cliqué sur un ingrédient dans la liste.
+ // on ajoute le tag de cet ingrédient à la liste des tags (éventuellement déjà existants)
+ // on ferme la liste des ingrédients
+ let ingredient_Tags_Container = document.getElementById("ingredient_Tags_Container");
+
+
+ var elements = document.getElementsByClassName("ingredient");
+
+  for (var i = 0, len = elements.length; i < len; i++) {
+    elements [i].addEventListener("click", function() {
+        /* Do your stuffs here */
+        console.log(ingredient);
+        ingredient_Tags_Container.appendChild(ingredient);
+        console.log("le clique marche");
+    });
+  }
+ //filterRecipes();
 }
