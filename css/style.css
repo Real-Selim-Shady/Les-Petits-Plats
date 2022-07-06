@@ -383,9 +383,54 @@ svg {
 
 .filtres_petits {
     display: flex;
+    flex-direction: column;
 }
+
+.Tags_Container {
+  display: flex;
+  flex-wrap: nowrap;
+  padding-bottom: 5px;
+}
+
+.filtre_petit_1 {
+  display: flex;
+}
+
 
 input:hover {
   border: 0, transparent;
   background: transparent;
   }
+
+
+.ingredient_tag {
+  display: block;
+  background-color: #3282F7;
+  padding: 3px;
+}
+
+.ustensil_tag {
+  display: block;
+  background-color: #ED6454;
+}
+
+.appareil_tag {
+  display: block;
+  background-color:#68D9A4;
+}
+
+.ingredient {
+  padding-left: 10px;
+}
+
+.appareil {
+  padding-left: 10px;
+}
+
+.ustensil {
+  padding-left: 10px;
+}
+
+.filteredInput:focus {
+  outline: none;
+}

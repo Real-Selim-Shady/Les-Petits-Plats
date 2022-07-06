@@ -114,31 +114,72 @@ function recipeFactory(recipe) {
     
 }
 
-function getAppareilTag (appliance) {
+function getAppareilCard (appliance) {
 
     const appareil1 = document.createElement("div");
     appareil1.className = "appareil";
     appareil1.textContent = appliance;
 
+    appareil1.addEventListener("click", function (event) 
+    {
+        addAppareilTag(event.srcElement.innerText);
+    });
+
     return (appareil1);
 }
 
 
-function getUstensilTag (ustensil) {
+function getUstensilCard (ustensil) {
 
     const ustensil1 = document.createElement("div");
     ustensil1.className = "ustensil";
     ustensil1.textContent = ustensil;
 
+    ustensil1.addEventListener("click", function (event) 
+    {
+        addUstensilTag(event.srcElement.innerText);
+    });
+
     return (ustensil1);
 }
 
 
-function getIngredientTag (ingredient) {
+function getIngredientCard(ingredient) {
     
     const ingredient1 = document.createElement("div");
     ingredient1.className = "ingredient";
     ingredient1.textContent = ingredient;
+
+   ingredient1.addEventListener("click", function (event) 
+    {
+        addIngredientTag(event.srcElement.innerText);
+    });
+/*ingredient1.addEventListener("click", function (event) 
+{
+    console.log(event.srcElement.innerText);
+    chosen_ingredient = event.srcElement;
+
+    chosen_ingredient.className = "ingredient_tag";
+    croixSuppressionTag= "  Croix de fermeture";
+    chosen_ingredient.textContent = chosen_ingredient.innerText;
+
+    //Tags_Container.innerText = chosen_ingredient;
+
+    Tags_Container.appendChild(chosen_ingredient);
+
+    let ingredient_tag = document.getElementsByClassName("ingredient_tag");
+
+    for (let i = 0; i < ingredient_tag.length; i++) 
+    {
+        ingredient_tag[i].addEventListener("click", function (event2) 
+        {
+            unselected_ingredient = event2.srcElement;
+            unselected_ingredient.style.display="none";
+        })
+    };
+
+});*/
+
 
     return (ingredient1);
 
@@ -150,25 +191,4 @@ function closeMediaModal () {
     let modal = document.getElementById("myModal");
     modal.style.display = "none";
 
-}
-
-function ajouterIngredientTag(ingredient)
-{
- // l'utilisateur a cliqué sur un ingrédient dans la liste.
- // on ajoute le tag de cet ingrédient à la liste des tags (éventuellement déjà existants)
- // on ferme la liste des ingrédients
- let ingredient_Tags_Container = document.getElementById("ingredient_Tags_Container");
-
-
- var elements = document.getElementsByClassName("ingredient");
-
-  for (var i = 0, len = elements.length; i < len; i++) {
-    elements [i].addEventListener("click", function() {
-        /* Do your stuffs here */
-        console.log(ingredient);
-        ingredient_Tags_Container.appendChild(ingredient);
-        console.log("le clique marche");
-    });
-  }
- //filterRecipes();
 }
