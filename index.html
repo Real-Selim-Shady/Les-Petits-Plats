@@ -16,7 +16,7 @@
         <div class="filtres_flex">
           <div class="filtre_grand">
             <div class="text_flex">
-              <input type="text" name="rechercher" id="rechercher" class="text" placeholder="Rechercher une recette" onkeyup="loadSearch(filteredRecipes)" />
+              <input type="text" name="rechercher" id="rechercher" class="text" placeholder="Rechercher une recette" onkeyup="filterBySearch(filteredRecipes)" />
             </div>
             <div class="icon_search_flex">
               <i class="fa-solid fa-magnifying-glass"></i>
@@ -26,7 +26,9 @@
 
             <div class="blocTags">
               <div class="Tags_Container" id="Tags_Container">
-
+                <div class="Tags_Container_Ingredients" id="Tags_Container_Ingredients"></div>
+                <div class="Tags_Container_Appareils" id="Tags_Container_Appareils"></div>
+                <div class="Tags_Container_Ustensils" id="Tags_Container_Ustensils"></div>
               </div>
             </div>
 

@@ -4,6 +4,13 @@ let filteredRecipes = [...recipes];
 let littleIngredients = [];
 let littleAppareils = [];
 let littleUstensils = [];
+let Tags_Container= document.getElementById("Tags_Container");
+let Tags_Container_Ingredients= document.getElementById("Tags_Container_Ingredients");
+let Tags_Container_Appareils= document.getElementById("Tags_Container_Appareils");
+let Tags_Container_Ustensils= document.getElementById("Tags_Container_Ustensils");
+let ingredient_tag = document.getElementsByClassName("ingredient_tag");
+let ustensil_tag = document.getElementsByClassName("ustensil_tag");
+let appareil_tag = document.getElementsByClassName("appareil_tag");
 
 
 //chaque tag sera un objet {type:"", text:""}
@@ -84,37 +91,34 @@ function filterRecipes()
 {
  // réagit à chaque fois qu'on ajoute ou supprime un tag
 
+    filteredRecipes = [...recipes]; 
 
- let Tags_Container= document.getElementById("Tags_Container");
 
- 
- filteredRecipes = [...recipes]; 
-    /*function filterByTags(){
-        filteredRecipes = recipes.filter(item => item.name.toLowerCase().includes(Tags_Container)); 
-        displayRecipes();
-    }*/
-
-    /*console.log(Tags_Container);
-
-    if (Tags_Container.children.length == 0) { 
-        filteredRecipes = [...recipes];// les recettes d'origine, filtrées par tous les tags courants. / une copie de l'array d'origine recipes
-
-    } else {
-        //filteredRecipes = [...recipes]
-        console.log("coucou");
-        const filters = [,];
-
-        filteredRecipes = recipes.filter((recipe) => {
-            const tags = [recipe.ingredients, recipe.ustensils, recipe.appliance];
-            return filters.every(f => tags.includes(f));
-        });
-        console.log(filteredRecipes)
-    }*/
-
- extractUstensils();
- extractIngredients();
- extractAppareils();
+    extractUstensils();
+    extractIngredients();
+    extractAppareils();
  // et les ustensiles et les appliences
+
+    filterBySearch();
+
+
+    for(let i=0; i < ingredient_tag.length ; i++)
+    {
+        filteredRecipes = filterByIngredient(filteredRecipes, ingredient_tag[i].innerText); 
+    }
+    
+    for(let i=0; i < ustensil_tag.length ; i++)
+    {
+        filteredRecipes = filterByUstensil(filteredRecipes, ustensil_tag[i].innerText); 
+    }
+    
+    for(let i=0; i < appareil_tag.length ; i++)
+    {
+        filteredRecipes = filterByAppareil(filteredRecipes, appareil_tag[i].innerText); 
+    }
+    
+
+    displayRecipes();
 
 }
 
@@ -163,50 +167,127 @@ function afficherAppareils(appliance)
 }
 
 
-/*
-function displayLittleAppareils() {
-    const little_appareils_container = document.getElementById("little_appareils_container");
-    little_appareils_container.innerHTML = "";
+function filterBySearch()
+{
+    let rechercher = document.getElementById("rechercher").value.toLowerCase();
 
-    const appareils = [];
+    if(rechercher.length >= 3) 
+    {
+        /* fonctionne pas, mais une piste
+        for (let i=0; i<filteredRecipes.length; i++) 
+        {
+            if (filteredRecipes[i].toLowerCase().includes(rechercher)) 
+            {
+                filteredRecipesList.push(filteredRecipes[i]);
+            } 
+        }
+        displayRecipes();
+        */
 
-    filteredRecipes.forEach((recipe) => {
+        filteredRecipes = 
 
-        if (appareils.indexOf(recipe.appliance)<0){
-        appareils.push(recipe.appliance);};
-    });
+        recipes.filter((recipe) => {
+        return (
+            (recipe.ingredients.filter
+                ( ingredient => 
+                
+                ingredient.ingredient.toLowerCase().includes(rechercher)
 
-    appareils.forEach((appareil) => {
-        little_appareils_container.appendChild(getAppareilTag(appareil));
-    })
+                )
 
+            ).length >0 
+            /*||
+            (recipe.ustensils.filter
+                ( ustensils => 
+                
+                ustensils.toLowerCase().includes(rechercher)
 
+                )
 
-}
-*/
-
-
-function loadSearch() {
-    const dataSearched = document.getElementById("rechercher").value.toLowerCase();
-    if(dataSearched.length >= 3) {
-
-        /*function filterAll(){*/
-         // un tag est un objet {type: "ingredient", text: "coco"}
-
-         
-
+            ).length >0 
+            ||
+            recipe.appliance.toLowerCase().includes(rechercher)*/
+            ||
+            recipe.name.toLowerCase().includes(rechercher)
+            ||
+            recipe.description.toLowerCase().includes(rechercher)
+            )
+        }); 
         
     } else {
-
-        /*function filterAll() {*/
-        filteredRecipes = [...recipes];
-        displayRecipes();
-
-
-
+        filteredRecipes = [...recipes]
     }
+
+    
+    displayRecipes();
 }
 
+
+function filterByIngredient(filteredRecipes, filteringIngredient) 
+{
+
+        
+    filteredRecipes = 
+
+    filteredRecipes.filter((recipe) => 
+    {
+        return (
+            (
+                recipe.ingredients.filter
+                ( 
+                    ingredient => 
+                
+                    ingredient.ingredient.toLowerCase().includes(filteringIngredient.toLowerCase())
+                )
+
+            ).length >0)
+    });
+
+    return filteredRecipes;
+    
+
+    //displayRecipes();
+
+}
+
+//fonctionne alors que je n'ai pas ajouté les ustensils en invisible... quel est le pb d'appareils alors?
+function filterByUstensil(filteredRecipes, filteringUstensil) 
+{
+
+    filteredRecipes = 
+
+    filteredRecipes.filter((recipe) => {
+    return (
+        (recipe.ustensils.filter
+            ( ustensils => 
+            
+            ustensils.toLowerCase().includes(filteringUstensil.toLowerCase())
+
+            )
+
+        ).length >0)
+    });
+
+
+    return filteredRecipes;
+    
+
+}
+
+//ajoute les appareils dans la carte mais en invisible?
+function filterByAppareil(filteredRecipes, filteringAppareil) 
+{
+  
+    filteredRecipes = 
+
+    filteredRecipes.filter((recipe) => {
+    return (
+        recipe.appliance.toLowerCase().includes(filteringAppareil.toLowerCase())
+        )
+    });
+    
+    return filteredRecipes;
+}
 
 
 
@@ -285,22 +366,6 @@ function onAppareilFilterChange()
     } 
 
 }
-
-/*
-function filterByAppareil(){
-    const appareilSearched = document.getElementById("recherche_appareils").value.toLowerCase();
-    if(appareilSearched.length >= 3) {
-        filteredRecipes = recipes.filter(item => item.appliance.toLowerCase().includes(appareilSearched));
-        displayLittleAppareils();
-    }else {
-        filteredRecipes = [...recipes]; 
-        displayLittleAppareils();
-    }
-}
-*/
-
-
-
 
 //fonctions servant à faire tourner les fleches pour le moment
 function open_select1(){
@@ -401,24 +466,31 @@ function open_select3_2(){
 
 function addIngredientTag(ingredient)
 { 
-    
+
+    bloc_chosen_ingredient = document.createElement("div");
+
     chosen_ingredient = document.createElement("div");
 
     chosen_ingredient.className = "ingredient_tag";
-    croixSuppressionTag= "  Croix de fermeture";
     chosen_ingredient.textContent = ingredient;
+    chosen_ingredient.id = "ingredient_tag";
+
+    croixSuppressionTag= document.createElement("i");
+    croixSuppressionTag.className = "fa-regular fa-circle-xmark";
+    croixSuppressionTag.id = "croix_tag";
+    bloc_chosen_ingredient.className = "bloc_chosen_ingredient";
+    
+    bloc_chosen_ingredient.appendChild(chosen_ingredient);
+    bloc_chosen_ingredient.appendChild(croixSuppressionTag);
+    Tags_Container_Ustensils.appendChild(bloc_chosen_ingredient);
 
 
-    Tags_Container.appendChild(chosen_ingredient);
-
-    //let ingredient_tag = document.getElementsByClassName("ingredient_tag");
-
-
-    chosen_ingredient.addEventListener("click", function (event2) 
+    bloc_chosen_ingredient.addEventListener("click", function (event2) 
     {
-        unselected_ingredient = event2.srcElement;
-        unselected_ingredient.style.display="none"; // il reste dans la liste il faut changer ça
+        bloc_chosen_ingredient.remove(); 
+        filterRecipes();
     })
+
 
     filterRecipes();
 
@@ -429,23 +501,32 @@ function addUstensilTag(ustensil)
  // l'utilisateur a cliqué sur un ustensil dans la liste.
  // on ajoute le tag de cet ustensil à la liste des tags (éventuellement déjà existants)
  // on ferme la liste des ustensils
+
+    bloc_chosen_ustentil = document.createElement("div");
+
     chosen_ustensil = document.createElement("div");
 
     chosen_ustensil.className = "ustensil_tag";
-    croixSuppressionTag= "  Croix de fermeture";
     chosen_ustensil.textContent = ustensil;
+    chosen_ustensil.id = "ustensil_tag";
+    bloc_chosen_ustentil.className = "bloc_chosen_ustentil";
+
+    croixSuppressionTag= document.createElement("i");
+    croixSuppressionTag.className = "fa-regular fa-circle-xmark";
+    croixSuppressionTag.id = "croix_tag";
+
+    bloc_chosen_ustentil.appendChild(chosen_ustensil);
+    bloc_chosen_ustentil.appendChild(croixSuppressionTag);
+    Tags_Container_Ustensils.appendChild(bloc_chosen_ustentil);
 
 
-    Tags_Container.appendChild(chosen_ustensil);
-
-    //let ustensil_tag = document.getElementsByClassName("ustensil_tag");
-
-
-    chosen_ustensil.addEventListener("click", function (event2) 
+    bloc_chosen_ustentil.addEventListener("click", function (event2) 
     {
-        unselected_ustensil = event2.srcElement;
-        unselected_ustensil.style.display="none"; // il reste dans la liste il faut changer ça
+        bloc_chosen_ustentil.remove(); 
+        filterRecipes();
     })
+
+    
 
     filterRecipes();
 }
@@ -456,14 +537,15 @@ function addAppareilTag(appliance)
  // l'utilisateur a cliqué sur un ustensil dans la liste.
  // on ajoute le tag de cet ustensil à la liste des tags (éventuellement déjà existants)
  // on ferme la liste des ustensils
-    chosen_appareil = document.createElement("div");
+    /*chosen_appareil = document.createElement("div");
 
     chosen_appareil.className = "appareil_tag";
     croixSuppressionTag= "  Croix de fermeture";
     chosen_appareil.textContent = appliance;
+    chosen_appareil.id = "appareil_tag";
 
 
-    Tags_Container.appendChild(chosen_appareil);
+    Tags_Container_Appareils.appendChild(chosen_appareil);
 
     //let ustensil_tag = document.getElementsByClassName("ustensil_tag");
 
@@ -471,56 +553,46 @@ function addAppareilTag(appliance)
     chosen_appareil.addEventListener("click", function (event2) 
     {
         unselected_appareil = event2.srcElement;
-        unselected_appareil.style.display="none"; // il reste dans la liste il faut changer ça
+        unselected_appareil.remove(); // il reste dans la liste il faut changer ça
+    })*/
+
+
+
+    bloc_chosen_appareil = document.createElement("div");
+
+    chosen_appareil = document.createElement("div");
+
+    chosen_appareil.className = "appareil_tag";
+    chosen_appareil.textContent = appliance;
+    chosen_appareil.id = "appareil_tag";
+
+    croixSuppressionTag= document.createElement("i");
+    croixSuppressionTag.className = "fa-regular fa-circle-xmark";
+    croixSuppressionTag.id = "croix_tag";
+
+
+
+    bloc_chosen_appareil.className = "bloc_chosen_appareil";
+
+    bloc_chosen_appareil.appendChild(chosen_appareil);
+    bloc_chosen_appareil.appendChild(croixSuppressionTag);
+    Tags_Container_Ustensils.appendChild(bloc_chosen_appareil);
+
+
+    bloc_chosen_appareil.addEventListener("click", function (event2) 
+    {
+        bloc_chosen_appareil.remove(); 
+        filterRecipes();
     })
 
     filterRecipes();
 }
 
-/*
-function ajouterAppareilTag(appareil)
-{
- // l'utilisateur a cliqué sur un appareil dans la liste.
- // on ajoute le tag de cet appareil à la liste des tags 
- // on ferme la liste des appareils
-
- let elements = document.getElementsByClassName("appareil");
- let Tags_Container= document.getElementById("Tags_Container");
- let chosen_appareil = "";
-
-  for (let i = 0; i < elements.length; i++) {
-    elements[i].addEventListener("click", function choseAppareil(event) {
-
-        console.log(event.srcElement.innerText);
-        chosen_appareil = event.srcElement;
-
-        chosen_appareil.className = "appareil_tag";
-        croixSuppressionTag= "  Croix de fermeture";
-        chosen_appareil.textContent = chosen_appareil.innerText;
-
-        //Tags_Container.innerText = chosen_appareil;
-        Tags_Container.appendChild(chosen_appareil);
-
-        let appareil_tag = document.getElementsByClassName("appareil_tag");
-
-        //refaire filtrer les appareils/ingredients/ustensils à partir des filteredRecipes
-
-        for (let i = 0; i < appareil_tag.length; i++) {
-            appareil_tag[i].addEventListener("click", function appareilTag(event2) {
-                unselected_appareil = event2.srcElement;
-                unselected_appareil.style.display="none";
-            })};
- 
-    });
-  }
- //filterRecipes();
-}
-*/
 
 //cette fonction permet de rendre actives les fonctions évoquées à l'intérieur de celle-ci
 window.onload = function() {
     const recipes = getRecipes();
-    displayRecipes(recipes);
+    displayRecipes(filteredRecipes);
     extractIngredients();
     extractUstensils();
     extractAppareils();
@@ -529,8 +601,5 @@ window.onload = function() {
     afficherUstensils(littleUstensils);
     afficherAppareils(littleAppareils);
 
-    //displayLittleAppareils(recipes);
-    //ajouterIngredientTag(recipes);
-    //ajouterUstensilTag(recipes);
-    //ajouterAppareilTag(recipes);
+
 };

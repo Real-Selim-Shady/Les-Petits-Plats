@@ -97,6 +97,10 @@ function recipeFactory(recipe) {
         ingredient1.textContent = ingredients.ingredient;
         ingredients1.appendChild(ingredient1);
 
+        const appareils2 = document.createElement("div");
+        appareils2.className = "appareil_carte";
+        article.appendChild(appareils2);
+
         const tuto = document.createElement("div");
         tuto.className = "tuto";
         ingredientsAndTuto.appendChild(tuto);
@@ -154,32 +158,6 @@ function getIngredientCard(ingredient) {
     {
         addIngredientTag(event.srcElement.innerText);
     });
-/*ingredient1.addEventListener("click", function (event) 
-{
-    console.log(event.srcElement.innerText);
-    chosen_ingredient = event.srcElement;
-
-    chosen_ingredient.className = "ingredient_tag";
-    croixSuppressionTag= "  Croix de fermeture";
-    chosen_ingredient.textContent = chosen_ingredient.innerText;
-
-    //Tags_Container.innerText = chosen_ingredient;
-
-    Tags_Container.appendChild(chosen_ingredient);
-
-    let ingredient_tag = document.getElementsByClassName("ingredient_tag");
-
-    for (let i = 0; i < ingredient_tag.length; i++) 
-    {
-        ingredient_tag[i].addEventListener("click", function (event2) 
-        {
-            unselected_ingredient = event2.srcElement;
-            unselected_ingredient.style.display="none";
-        })
-    };
-
-});*/
-
 
     return (ingredient1);
 

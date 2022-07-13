@@ -392,6 +392,23 @@ svg {
   padding-bottom: 5px;
 }
 
+.Tags_Container_Ingredients {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.Tags_Container_Ustensils {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.Tags_Container_Appareils {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+
+
 .filtre_petit_1 {
   display: flex;
 }
@@ -405,18 +422,52 @@ input:hover {
 
 .ingredient_tag {
   display: block;
-  background-color: #3282F7;
-  padding: 3px;
+  color: white;
 }
 
 .ustensil_tag {
   display: block;
-  background-color: #ED6454;
+  color: white;
 }
 
 .appareil_tag {
   display: block;
+  color: white;
+}
+
+
+.bloc_chosen_ingredient{
+  display: flex;
+  background-color: #3282F7;
+  align-items: center;
+  padding: 15px;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.bloc_chosen_ustentil{
+  display: flex;
+  background-color: #ED6454;
+  align-items: center;
+  padding: 15px;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.bloc_chosen_appareil{
+  display: flex;
   background-color:#68D9A4;
+  align-items: center;
+  padding: 15px;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+#croix_tag{
+  color: white;
+  border: white;
+  border-radius: 5px;
+  padding-left: 10px;
 }
 
 .ingredient {
@@ -433,4 +484,8 @@ input:hover {
 
 .filteredInput:focus {
   outline: none;
+}
+
+.appareil_carte {
+  display: none;
 }
