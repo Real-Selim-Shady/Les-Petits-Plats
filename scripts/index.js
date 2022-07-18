@@ -11,6 +11,8 @@ let Tags_Container_Ustensils= document.getElementById("Tags_Container_Ustensils"
 let ingredient_tag = document.getElementsByClassName("ingredient_tag");
 let ustensil_tag = document.getElementsByClassName("ustensil_tag");
 let appareil_tag = document.getElementsByClassName("appareil_tag");
+let rechercher2 = document.getElementById("rechercher");
+
 
 
 //chaque tag sera un objet {type:"", text:""}
@@ -36,6 +38,7 @@ function displayRecipes() {
         recettes_accueil.appendChild(recipeCard);
 	
     });
+
 }
 
 function extractIngredients()
@@ -43,7 +46,7 @@ function extractIngredients()
  // réagit chaque fois que la liste des recettes a changé (donc le filtrage par les tags a changé)
  //littleIngredients = // extrait les ingrédients des recettes filtrées (filteredRecipes) 
 
-    littleIngredients = [];
+    littleIngredients = []; // doublon
 
     for (let i=0 ; i<filteredRecipes.length; i++) {
         for ( let j=0; j<filteredRecipes[i].ingredients.length; j++) {
@@ -60,7 +63,7 @@ function extractUstensils()
  // réagit chaque fois que la liste des recettes a changé (donc le filtrage par les tags a changé)
  //littleIngredients = // extrait les ingrédients des recettes filtrées (filteredRecipes) 
 
-    littleUstensils = [];
+    littleUstensils = []; // doublon
 
     for (let i=0 ; i<filteredRecipes.length; i++) {
         for ( let j=0; j<filteredRecipes[i].ustensils.length; j++) {
@@ -77,7 +80,7 @@ function extractAppareils()
  // réagit chaque fois que la liste des recettes a changé (donc le filtrage par les tags a changé)
  //littleIngredients = // extrait les ingrédients des recettes filtrées (filteredRecipes) 
 
-    littleAppareils = [];
+    littleAppareils = []; // doublon
 
     for (let i=0 ; i<filteredRecipes.length; i++) {
         if (littleAppareils.indexOf(filteredRecipes[i].appliance)<0) 
@@ -89,17 +92,16 @@ function extractAppareils()
 
 function filterRecipes()
 {
+
+
  // réagit à chaque fois qu'on ajoute ou supprime un tag
 
-    filteredRecipes = [...recipes]; 
-
-
-    extractUstensils();
-    extractIngredients();
-    extractAppareils();
  // et les ustensiles et les appliences
 
-    filterBySearch();
+
+
+    //filterBySearch();
+
 
 
     for(let i=0; i < ingredient_tag.length ; i++)
@@ -117,6 +119,9 @@ function filterRecipes()
         filteredRecipes = filterByAppareil(filteredRecipes, appareil_tag[i].innerText); 
     }
     
+    extractUstensils(filteredRecipes);
+    extractIngredients(filteredRecipes);
+    extractAppareils(filteredRecipes);
 
     displayRecipes();
 
@@ -145,7 +150,7 @@ function afficherUstensils(ustensils)
     const little_ustensiles_container = document.getElementById("little_ustensiles_container");
     little_ustensiles_container.innerHTML = "";
 
-
+    
     ustensils.forEach((ustensil) => { 
         little_ustensiles_container.appendChild(getUstensilCard(ustensil));
     })
@@ -169,57 +174,42 @@ function afficherAppareils(appliance)
 
 function filterBySearch()
 {
+
     let rechercher = document.getElementById("rechercher").value.toLowerCase();
 
-    if(rechercher.length >= 3) 
-    {
-        /* fonctionne pas, mais une piste
-        for (let i=0; i<filteredRecipes.length; i++) 
-        {
-            if (filteredRecipes[i].toLowerCase().includes(rechercher)) 
+    if (rechercher.length>=3) 
+    {   for (i=0; i<rechercher.length; i++) {
+            filteredRecipes = 
+            filteredRecipes.filter((recipe) => 
             {
-                filteredRecipesList.push(filteredRecipes[i]);
-            } 
+                return (
+                    (recipe.ingredients.filter
+                        ( ingredient => 
+                        
+                        ingredient.ingredient.toLowerCase().includes(rechercher)
+
+                        )
+
+                    ).length >0 
+                    ||
+                    recipe.name.toLowerCase().includes(rechercher)
+                    ||
+                    recipe.description.toLowerCase().includes(rechercher)
+                    )
+            }); 
         }
-        displayRecipes();
-        */
 
-        filteredRecipes = 
-
-        recipes.filter((recipe) => {
-        return (
-            (recipe.ingredients.filter
-                ( ingredient => 
-                
-                ingredient.ingredient.toLowerCase().includes(rechercher)
-
-                )
-
-            ).length >0 
-            /*||
-            (recipe.ustensils.filter
-                ( ustensils => 
-                
-                ustensils.toLowerCase().includes(rechercher)
-
-                )
-
-            ).length >0 
-            ||
-            recipe.appliance.toLowerCase().includes(rechercher)*/
-            ||
-            recipe.name.toLowerCase().includes(rechercher)
-            ||
-            recipe.description.toLowerCase().includes(rechercher)
-            )
-        }); 
-        
-    } else {
-        filteredRecipes = [...recipes]
+    }else {
+        filteredRecipes = [...recipes];
+        filterRecipes();
     }
 
     
     displayRecipes();
+
+
+    // finir avec un filterRecipes pour l'appeler la fonction*/
+
 }
 
 
@@ -317,7 +307,10 @@ function onIngredientFilterChange()
             } 
         }
         afficherIngredients(littleIngredientsList);
+    }else{
+        afficherIngredients(littleIngredients);
     }
+    
 
 }
 
@@ -341,7 +334,9 @@ function onUstensilFilterChange()
             } 
         }
         afficherUstensils(littleUstensilsList);
-    } 
+    }else{
+        afficherUstensils(littleUstensils);
+    }
 
 }
 
@@ -363,7 +358,9 @@ function onAppareilFilterChange()
             } 
         }
         afficherAppareils(littleAppareilsList);
-    } 
+    }else{
+        afficherAppareils(littleAppareils);
+    }
 
 }
 
@@ -534,29 +531,6 @@ function addUstensilTag(ustensil)
 
 function addAppareilTag(appliance)
 {
- // l'utilisateur a cliqué sur un ustensil dans la liste.
- // on ajoute le tag de cet ustensil à la liste des tags (éventuellement déjà existants)
- // on ferme la liste des ustensils
-    /*chosen_appareil = document.createElement("div");
-
-    chosen_appareil.className = "appareil_tag";
-    croixSuppressionTag= "  Croix de fermeture";
-    chosen_appareil.textContent = appliance;
-    chosen_appareil.id = "appareil_tag";
-
-
-    Tags_Container_Appareils.appendChild(chosen_appareil);
-
-    //let ustensil_tag = document.getElementsByClassName("ustensil_tag");
-
-
-    chosen_appareil.addEventListener("click", function (event2) 
-    {
-        unselected_appareil = event2.srcElement;
-        unselected_appareil.remove(); // il reste dans la liste il faut changer ça
-    })*/
-
-
 
     bloc_chosen_appareil = document.createElement("div");
 
@@ -593,13 +567,14 @@ function addAppareilTag(appliance)
 window.onload = function() {
     const recipes = getRecipes();
     displayRecipes(filteredRecipes);
-    extractIngredients();
-    extractUstensils();
-    extractAppareils();
+    extractIngredients(filteredRecipes); // inutilité du paramètre
+    extractUstensils(filteredRecipes); // inutilité du paramètre
+    extractAppareils(filteredRecipes); // inutilité du paramètre
 
     afficherIngredients(littleIngredients);
     afficherUstensils(littleUstensils);
     afficherAppareils(littleAppareils);
+
 
 
 };
