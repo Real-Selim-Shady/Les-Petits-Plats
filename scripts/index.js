@@ -12,6 +12,7 @@ let ingredient_tag = document.getElementsByClassName("ingredient_tag");
 let ustensil_tag = document.getElementsByClassName("ustensil_tag");
 let appareil_tag = document.getElementsByClassName("appareil_tag");
 let rechercher2 = document.getElementById("rechercher");
+let recettes_accueil = document.getElementById("recettes_accueil");
 
 
 
@@ -27,7 +28,6 @@ function getRecipes() {
 
 //afficher les recettes recipes
 function displayRecipes() {
-    const recettes_accueil = document.getElementById("recettes_accueil");
     recettes_accueil.innerHTML = "";
 
     //essayer de faire fonctionner ça avec une boucle for sur la version pas optimisée
@@ -46,7 +46,7 @@ function extractIngredients()
  // réagit chaque fois que la liste des recettes a changé (donc le filtrage par les tags a changé)
  //littleIngredients = // extrait les ingrédients des recettes filtrées (filteredRecipes) 
 
-    littleIngredients = []; // doublon
+    littleIngredients = []; 
 
     for (let i=0 ; i<filteredRecipes.length; i++) {
         for ( let j=0; j<filteredRecipes[i].ingredients.length; j++) {
@@ -56,6 +56,14 @@ function extractIngredients()
             }
         }
     }
+
+    /*filteredRecipes.forEach { recipe =>
+        recipe.ingredients.forEach(ingredient => {
+            
+        });
+    }*/
+
+
 }
 
 function extractUstensils()
@@ -63,7 +71,7 @@ function extractUstensils()
  // réagit chaque fois que la liste des recettes a changé (donc le filtrage par les tags a changé)
  //littleIngredients = // extrait les ingrédients des recettes filtrées (filteredRecipes) 
 
-    littleUstensils = []; // doublon
+    littleUstensils = []; 
 
     for (let i=0 ; i<filteredRecipes.length; i++) {
         for ( let j=0; j<filteredRecipes[i].ustensils.length; j++) {
@@ -80,7 +88,7 @@ function extractAppareils()
  // réagit chaque fois que la liste des recettes a changé (donc le filtrage par les tags a changé)
  //littleIngredients = // extrait les ingrédients des recettes filtrées (filteredRecipes) 
 
-    littleAppareils = []; // doublon
+    littleAppareils = []; 
 
     for (let i=0 ; i<filteredRecipes.length; i++) {
         if (littleAppareils.indexOf(filteredRecipes[i].appliance)<0) 
@@ -93,16 +101,10 @@ function extractAppareils()
 function filterRecipes()
 {
 
-
  // réagit à chaque fois qu'on ajoute ou supprime un tag
-
  // et les ustensiles et les appliences
-
-
-
-    //filterBySearch();
-
-
+    filteredRecipes = [...recipes];
+    filterBySearch();
 
     for(let i=0; i < ingredient_tag.length ; i++)
     {
@@ -119,9 +121,13 @@ function filterRecipes()
         filteredRecipes = filterByAppareil(filteredRecipes, appareil_tag[i].innerText); 
     }
     
-    extractUstensils(filteredRecipes);
-    extractIngredients(filteredRecipes);
-    extractAppareils(filteredRecipes);
+    extractUstensils();
+    extractIngredients();
+    extractAppareils();
+
+    afficherIngredients(littleIngredients);
+    afficherUstensils(littleUstensils);
+    afficherAppareils(littleAppareils);
 
     displayRecipes();
 
@@ -178,37 +184,53 @@ function filterBySearch()
     let rechercher = document.getElementById("rechercher").value.toLowerCase();
 
     if (rechercher.length>=3) 
-    {   for (i=0; i<rechercher.length; i++) {
-            filteredRecipes = 
-            filteredRecipes.filter((recipe) => 
-            {
-                return (
-                    (recipe.ingredients.filter
-                        ( ingredient => 
-                        
-                        ingredient.ingredient.toLowerCase().includes(rechercher)
+    {   
+        //version opti
+        filteredRecipes = 
+        filteredRecipes.filter((recipe) => 
+        {
+            return (
+                (recipe.ingredients.filter
+                    ( ingredient => 
+                    
+                    ingredient.ingredient.toLowerCase().includes(rechercher)
 
-                        )
-
-                    ).length >0 
-                    ||
-                    recipe.name.toLowerCase().includes(rechercher)
-                    ||
-                    recipe.description.toLowerCase().includes(rechercher)
                     )
-            }); 
+
+                ).length >0 
+                ||
+                recipe.name.toLowerCase().includes(rechercher)
+                ||
+                recipe.description.toLowerCase().includes(rechercher)
+            )
+        });
+
+        //version pas opti
+        /*let newFilteredRecipes = [];
+        for (let i=0; i<filteredRecipes.length;i++) 
+        {  
+            for(let y=0; y<filteredRecipes[i].ingredients.length; y++)
+            {
+                if 
+                (
+                    newFilteredRecipes.indexOf(filteredRecipes[i])<0 &&
+                    (
+                        filteredRecipes[i].ingredients[y].ingredient.toLowerCase().includes(rechercher)
+                        ||
+                        filteredRecipes[i].name.toLowerCase().includes(rechercher)
+                        ||
+                        filteredRecipes[i].description.toLowerCase().includes(rechercher)
+                    )
+                ){
+                    newFilteredRecipes.push(filteredRecipes[i]);
+                }      
+            }
+     
         }
+        filteredRecipes = newFilteredRecipes;*/
 
-    }else {
-        filteredRecipes = [...recipes];
-        filterRecipes();
+
     }
-
-    
-    displayRecipes();
-
-
-    // finir avec un filterRecipes pour l'appeler la fonction*/
 
 }
 
@@ -236,7 +258,6 @@ function filterByIngredient(filteredRecipes, filteringIngredient)
     return filteredRecipes;
     
 
-    //displayRecipes();
 
 }
 
@@ -567,14 +588,12 @@ function addAppareilTag(appliance)
 window.onload = function() {
     const recipes = getRecipes();
     displayRecipes(filteredRecipes);
-    extractIngredients(filteredRecipes); // inutilité du paramètre
-    extractUstensils(filteredRecipes); // inutilité du paramètre
-    extractAppareils(filteredRecipes); // inutilité du paramètre
+    extractIngredients(); 
+    extractUstensils(); 
+    extractAppareils(); 
 
     afficherIngredients(littleIngredients);
     afficherUstensils(littleUstensils);
     afficherAppareils(littleAppareils);
-
-
 
 };

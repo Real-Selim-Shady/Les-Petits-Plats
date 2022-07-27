@@ -63,7 +63,7 @@ body {
 
 .title {
   width: 70%;
-  font-family: DM Sans;
+  font-family: "DM Sans";
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
@@ -129,48 +129,6 @@ body {
 }
 
 
-
-
-
-.recettes_accueil article .localisation {
-    font-family: DM Sans;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 1px;
-    /* identical to box height */
-    
-    text-align: center;
-    
-    color: #901C1C;
-}
-
-
-.recettes_accueil article .tagline {
-    font-family: DM Sans;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 1px;
-    /* identical to box height */
-    
-    text-align: center;
-    
-    color: #000000;
-}
-
-.recettes_accueil article .prix {
-    font-family: DM Sans;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 13px;
-    line-height: 1px;
-    /* identical to box height */
-    
-    text-align: center;
-    
-    color: #757575;
-}
 
 .recettes_accueil article img {
     height: 200px;
@@ -415,7 +373,6 @@ svg {
 
 
 input:hover {
-  border: 0, transparent;
   background: transparent;
   }
 
