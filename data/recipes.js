@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable indent */
 
 const recipes = [
     {
@@ -1724,4 +1726,5 @@ const recipes = [
         "appliance": "Four",
         "ustensils":["rouleau à patisserie","fouet"]
     }
+// eslint-disable-next-line semi
 ]

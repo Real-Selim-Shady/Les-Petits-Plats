@@ -1,3 +1,6 @@
+/* eslint-disable no-extra-semi */
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 
 //fichier Javascript qui exploite les données JSON pour les injecter par méthode factory
 
@@ -56,44 +59,44 @@ function recipeFactory(recipe) {
 
 
         ingredients.forEach( ingredient => 
-            {
-                const ingredient1 = document.createElement("div");
-                ingredient1.className = "ingredients";
-                //if (ingredient.unit == null) {ingredient.unit = "";} else {ingredient.unit=ingredient.unit;};
-                //ingredient1.textContent = ingredient.ingredient + ': ' + ingredient.quantity + ingredient.unit;
-                //ingredient1.textContent = ingredient.ingredient;
-                ingredients1.appendChild(ingredient1);
+        {
+            const ingredient1 = document.createElement("div");
+            ingredient1.className = "ingredients";
+            //if (ingredient.unit == null) {ingredient.unit = "";} else {ingredient.unit=ingredient.unit;};
+            //ingredient1.textContent = ingredient.ingredient + ': ' + ingredient.quantity + ingredient.unit;
+            //ingredient1.textContent = ingredient.ingredient;
+            ingredients1.appendChild(ingredient1);
 
-                const ingredient_txt = document.createElement("div");
-                ingredient_txt.className = "ingredient_txt";
-                ingredient_txt.textContent = ingredient.ingredient;
-                ingredient1.appendChild(ingredient_txt);
+            const ingredient_txt = document.createElement("div");
+            ingredient_txt.className = "ingredient_txt";
+            ingredient_txt.textContent = ingredient.ingredient;
+            ingredient1.appendChild(ingredient_txt);
 
-                const quantity_unit = document.createElement("div")
-                quantity_unit.className = "quantity_unit";
-                if (ingredient.unit == null) {ingredient.unit = "";} 
-                else {ingredient.unit=ingredient.unit;};
-                if (ingredient.unit == "grammes") {ingredient.unit = "g";} 
-                if (ingredient.unit == "litres") {ingredient.unit = "l";} 
-                if (ingredient.unit == "litre") {ingredient.unit = "l";} 
-                if (ingredient.unit == "cuillères à café") {ingredient.unit = " cuillères à café";} 
-                if (ingredient.unit == "cuillères à soupe") {ingredient.unit = " cuillères à soupe";} 
-                if (ingredient.unit == "gousses") {ingredient.unit = " gousses";} 
-                if (ingredient.unit == "sachets") {ingredient.unit = " sachets";} 
-                if (ingredient.unit == "tranches") {ingredient.unit = " tranches";} 
-                if (ingredient.unit == "boites") {ingredient.unit = " boites";} 
-                if (ingredient.unit == "barquettes") {ingredient.unit = " barquettes";} 
-                if (ingredient.quantity == null) {quantity_unit.textContent = "";} 
-                else {quantity_unit.textContent =': ' + ingredient.quantity + ingredient.unit;};
-                //quantity_unit.textContent = ': ' + ingredient.quantity + ingredient.unit;
-                ingredient1.appendChild(quantity_unit);
+            const quantity_unit = document.createElement("div");
+            quantity_unit.className = "quantity_unit";
+            if (ingredient.unit == null) {ingredient.unit = "";} 
+            // eslint-disable-next-line no-self-assign
+            else {ingredient.unit=ingredient.unit;};
+            if (ingredient.unit == "grammes") {ingredient.unit = "g";} 
+            if (ingredient.unit == "litres") {ingredient.unit = "l";} 
+            if (ingredient.unit == "litre") {ingredient.unit = "l";} 
+            if (ingredient.unit == "cuillères à café") {ingredient.unit = " cuillères à café";} 
+            if (ingredient.unit == "cuillères à soupe") {ingredient.unit = " cuillères à soupe";} 
+            if (ingredient.unit == "gousses") {ingredient.unit = " gousses";} 
+            if (ingredient.unit == "sachets") {ingredient.unit = " sachets";} 
+            if (ingredient.unit == "tranches") {ingredient.unit = " tranches";} 
+            if (ingredient.unit == "boites") {ingredient.unit = " boites";} 
+            if (ingredient.unit == "barquettes") {ingredient.unit = " barquettes";} 
+            if (ingredient.quantity == null) {quantity_unit.textContent = "";} 
+            else {quantity_unit.textContent =": " + ingredient.quantity + ingredient.unit;};
+            //quantity_unit.textContent = ': ' + ingredient.quantity + ingredient.unit;
+            ingredient1.appendChild(quantity_unit);
             
-            }
-        )
+        });
 
         const ingredient1 = document.createElement("div");
         ingredient1.className = "ingredient";
-        ingredients.forEach((ingredient) => ingredient.ingredient)
+        ingredients.forEach((ingredient) => ingredient.ingredient);
         ingredient1.textContent = ingredients.ingredient;
         ingredients1.appendChild(ingredient1);
 
@@ -105,10 +108,10 @@ function recipeFactory(recipe) {
         tuto.className = "tuto";
         ingredientsAndTuto.appendChild(tuto);
         const tuto_description = document.createElement("span");
-        tuto_description.className = "tuto_description"
+        tuto_description.className = "tuto_description";
         tuto_description.textContent = description;
         tuto_description.ariaLabel = description;
-        tuto.appendChild(tuto_description)
+        tuto.appendChild(tuto_description);
 
         return (article);
     }
@@ -126,7 +129,7 @@ function getAppareilCard (appliance) {
 
     appareil1.addEventListener("click", function (event) 
     {
-        addAppareilTag(event.srcElement.innerText);
+        addAppareilTag(event.target.innerText);
     });
 
     return (appareil1);
@@ -141,7 +144,7 @@ function getUstensilCard (ustensil) {
 
     ustensil1.addEventListener("click", function (event) 
     {
-        addUstensilTag(event.srcElement.innerText);
+        addUstensilTag(event.target.innerText);
     });
 
     return (ustensil1);
@@ -154,19 +157,12 @@ function getIngredientCard(ingredient) {
     ingredient1.className = "ingredient";
     ingredient1.textContent = ingredient;
 
-   ingredient1.addEventListener("click", function (event) 
+    ingredient1.addEventListener("click", function (event) 
     {
-        addIngredientTag(event.srcElement.innerText);
+        addIngredientTag(event.target.innerText);
     });
 
     return (ingredient1);
 
 }
 
-//fonction permettant de fermer la modale de gallerie d"image
-function closeMediaModal () {
-
-    let modal = document.getElementById("myModal");
-    modal.style.display = "none";
-
-}
